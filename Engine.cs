@@ -36,15 +36,18 @@ namespace L20230725
             AllGameObjectinComponents_Start();
             while (true)
             {
-                Input();
+                ProcessInput();
                 AllGameObjectinComponents_Update();
                 AllGameObjectinMeshRenderer_Render();
             }
         }
 
-        protected void Input()
+        protected void ProcessInput()
         {
+            ConsoleKeyInfo info = Console.ReadKey();
+            Input.key = info.Key;
         }
+
         protected void AllGameObjectinComponents_Start()
         {
             foreach (var gameObject in gameObjects)
