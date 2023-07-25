@@ -26,6 +26,14 @@ namespace L20230725
         {
             x += addX;
             y += addY;
+            if (x < 0)
+            {
+                x = 0;
+            }
+            if (y < 0)
+            {
+                y = 0;
+            }
         }
     }
 }

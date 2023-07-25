@@ -72,6 +72,15 @@ namespace L20230725
             goal.AddComponent(new GoalIn());
             myEngine.Instanciate(goal);
 
+            GameObject monster = new GameObject();
+            monster.name = "monster";
+            monster.transform.x = 7;
+            monster.transform.y = 7;
+            monster.AddComponent(new MeshFilter('M'));
+            monster.AddComponent(new MeshRenderer());
+            monster.AddComponent(new AIController());
+            myEngine.Instanciate(monster);
+
             GameObject player = new GameObject();
             player.name = "player";
             player.transform.x = 1;
