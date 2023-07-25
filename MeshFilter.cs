@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace L20230725
 {
-    class MeshFilter
+    class MeshFilter : Component
     {
         public MeshFilter()
         {
             //' ' == " "
             //" " = ' ' '\0'
             Shape = ' ';
+        }
+        public MeshFilter(char newShape)
+        {
+            Shape = newShape;
         }
 
         ~MeshFilter() 
