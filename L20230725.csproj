@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoalIn.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="GameObject.cs" />

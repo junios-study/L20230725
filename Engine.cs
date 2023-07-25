@@ -9,14 +9,27 @@ namespace L20230725
 {
     class Engine
     {
-        public Engine()
+        protected Engine()
         {
             gameObjects = new List<GameObject>();
+            isRunning = true;
         }
 
         ~Engine()
         {
 
+        }
+
+        protected static Engine instance;
+
+        public static Engine GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new Engine();
+            }
+
+            return instance;
         }
 
         public void Instanciate(GameObject newGameObject)
@@ -34,7 +47,7 @@ namespace L20230725
         protected void GameLoop()
         {
             AllGameObjectinComponents_Start();
-            while (true)
+            while (isRunning)
             {
                 ProcessInput();
                 AllGameObjectinComponents_Update();
@@ -84,6 +97,26 @@ namespace L20230725
                     }
                 }
             }
+        }
+
+        protected static bool isRunning;
+
+        public static void Quit()
+        {
+            isRunning = false;
+        }
+
+        public static GameObject Find(string name)
+        {
+            foreach(var gameObject in GetInstance().gameObjects)
+            {
+                if(gameObject.name.Equals(name))
+                {
+                    return gameObject;
+                }
+            }
+
+            return null;
         }
     }
 }

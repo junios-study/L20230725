@@ -24,7 +24,7 @@ namespace L20230725
             };
         static void Main(string[] args)
         {
-            Engine myEngine = new Engine();
+            Engine myEngine = Engine.GetInstance();
 
             for (int y = 0; y < 10; ++y)
             {
@@ -62,6 +62,15 @@ namespace L20230725
                 }
 
             }
+
+            GameObject goal = new GameObject();
+            goal.name = "goal";
+            goal.transform.x = 8;
+            goal.transform.y = 8;
+            goal.AddComponent(new MeshFilter('G'));
+            goal.AddComponent(new MeshRenderer());
+            goal.AddComponent(new GoalIn());
+            myEngine.Instanciate(goal);
 
             GameObject player = new GameObject();
             player.name = "player";
