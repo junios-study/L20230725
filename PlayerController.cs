@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace L20230725
 {
-    class PlayerController : Component
+    class PlayerController : Controller
     {
         public PlayerController() { }
         ~PlayerController() { }
@@ -44,30 +44,6 @@ namespace L20230725
             }
         }
 
-        protected bool PredictMove(int newX, int newY)
-        {
-            foreach (var gameObject in Engine.GetInstance().GetAllGameObjects()) 
-            {
-                //다음 갈곳 오브젝트 구하기
-                if (gameObject.transform.x == newX &&
-                    gameObject.transform.y == newY )
-                {
-                    //모든 컴포넌트 가져오기
-                    foreach(var component in gameObject.components)
-                    {
-                        if (component is Collider)
-                        {
-                            Collider checkCopmponent = component as Collider;
-                            if ( checkCopmponent.isCollide)
-                            {
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
 
-            return true;
-        }
     }
 }

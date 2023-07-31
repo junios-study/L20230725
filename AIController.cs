@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace L20230725
 {
-    class AIController : Component
+    class AIController : Controller
     {
         public AIController() { }
         ~AIController() { }
@@ -28,19 +28,31 @@ namespace L20230725
 
             if (direction == 0)
             {
-                transform.Translate(0, -1);
+                if (PredictMove(transform.x, transform.y - 1))
+                {
+                    transform.Translate(0, -1);
+                }
             }
             if (direction == 1)
             {
-                transform.Translate(0, 1);
+                if (PredictMove(transform.x, transform.y + 1))
+                {
+                    transform.Translate(0, 1);
+                }
             }
             if (direction == 2)
             {
-                transform.Translate(-1, 0);
+                if (PredictMove(transform.x - 1, transform.y))
+                {
+                    transform.Translate(-1, 0);
+                }
             }
             if (direction == 3)
             {
-                transform.Translate(1, 0);
+                if (PredictMove(transform.x + 1, transform.y))
+                {
+                    transform.Translate(1, 0);
+                }
             }
         }
     }
