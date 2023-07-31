@@ -14,7 +14,12 @@ namespace L20230725
         public byte B;
         public byte A;
 
+        public string textureName;
+
         public int SpirteSize = 40;
+
+        IntPtr mySurface;
+        IntPtr myTexture;
 
         protected MeshFilter meshFilter;
         public MeshRenderer()
@@ -27,6 +32,18 @@ namespace L20230725
             G = inG;
             B = inB;
             A = inA;
+        }
+
+        public MeshRenderer(byte inR, byte inG, byte inB, byte inA, string inTextureName)
+        {
+            R = inR;
+            G = inG;
+            B = inB;
+            A = inA;
+            textureName = inTextureName;
+
+            mySurface = SDL.SDL_LoadBMP("Data/"+textureName);
+            myTexture = SDL.SDL_CreateTextureFromSurface(Engine.GetInstance().myRenderer, mySurface);
         }
         ~MeshRenderer() { }
 
@@ -47,13 +64,36 @@ namespace L20230725
             //Console.WriteLine(meshFilter.Shape);
 
             //Fill Rect
-            SDL.SDL_Rect myRect = new SDL.SDL_Rect();
-            myRect.x = transform.x * SpirteSize;
-            myRect.y = transform.y * SpirteSize;
-            myRect.w = SpirteSize;
-            myRect.h = SpirteSize;
-            SDL.SDL_SetRenderDrawColor(Engine.GetInstance().myRenderer, R, G, B, A);
-            SDL.SDL_RenderFillRect(Engine.GetInstance().myRenderer, ref myRect);
+            //SDL.SDL_Rect destination = new SDL.SDL_Rect();
+            //destination.x = transform.x * SpirteSize;
+            //destination.y = transform.y * SpirteSize;
+            //destination.w = SpirteSize;
+            //destination.h = SpirteSize;
+            //SDL.SDL_SetRenderDrawColor(Engine.GetInstance().myRenderer, R, G, B, A);
+            //SDL.SDL_RenderFillRect(Engine.GetInstance().myRenderer, ref destination);
+            unsafe //c언어 ,c++
+            {
+                SDL.SDL_Rect source = new SDL.SDL_Rect();
+                SDL.SDL_Surface* surface = (SDL.SDL_Surface*)mySurface;
+
+                source.x = 0;
+                source.y = 0;
+                source.w = surface->w;
+                source.h = surface->h;
+
+                SDL.SDL_Rect destination = new SDL.SDL_Rect();
+                destination.x = transform.x * SpirteSize;
+                destination.y = transform.y * SpirteSize;
+                destination.w = SpirteSize;
+                destination.h = SpirteSize;
+
+                SDL.SDL_RenderCopy(Engine.GetInstance().myRenderer,
+                    myTexture,
+                    ref source,
+                    ref destination);
+            }
+
+
         }
     }
 }
