@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDL2;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,15 @@ namespace L20230725
                 return true;
             }
 
+            return false;
+        }
+
+        public static bool GetKeyDown( SDL.SDL_Keycode keyCode ) 
+        {
+            if (Engine.GetInstance().myEvent.key.keysym.sym == keyCode)
+            {
+                return true;
+            }
             return false;
         }
     }

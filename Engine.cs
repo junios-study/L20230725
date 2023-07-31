@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SDL2;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,11 +14,35 @@ namespace L20230725
         {
             gameObjects = new List<GameObject>();
             isRunning = true;
+
+            Init();
         }
 
         ~Engine()
         {
+            Term();
+        }
 
+        public IntPtr myWindow;
+        public IntPtr myRenderer;
+        public SDL.SDL_Event myEvent;
+
+        public void Init()
+        {
+            SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING);
+
+            myWindow = SDL.SDL_CreateWindow("Game", 100, 100, 640, 480, SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
+            myRenderer = SDL.SDL_CreateRenderer(myWindow, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED
+                | SDL.SDL_RendererFlags.SDL_RENDERER_PRESENTVSYNC
+                | SDL.SDL_RendererFlags.SDL_RENDERER_TARGETTEXTURE);
+        }
+
+        public void Term()
+        {
+            SDL.SDL_DestroyRenderer(myRenderer);
+            SDL.SDL_DestroyWindow(myWindow);
+
+            SDL.SDL_Quit();
         }
 
         protected static Engine instance;
@@ -51,12 +76,27 @@ namespace L20230725
 
         protected void GameLoop()
         {
+
             AllGameObjectinComponents_Start();
             while (isRunning)
             {
-                ProcessInput();
+                SDL.SDL_PollEvent(out myEvent);
+                switch (myEvent.type)
+                {
+                    case SDL.SDL_EventType.SDL_QUIT:
+                        isRunning = false;
+                        break;
+                }
+
                 AllGameObjectinComponents_Update();
+                //Clear Screen
+                SDL.SDL_SetRenderDrawColor(myRenderer, 0, 0, 0, 0);
+                SDL.SDL_RenderClear(myRenderer);
+
                 AllGameObjectinMeshRenderer_Render();
+
+                //Present
+                SDL.SDL_RenderPresent(myRenderer);
             }
         }
 
