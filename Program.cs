@@ -129,7 +129,7 @@ namespace L20230725
             player.transform.x = 1;
             player.transform.y = 1;
             player.AddComponent(new MeshFilter('P'));
-            player.AddComponent(new MeshRenderer(255, 0, 0, 0, "test.bmp"));
+            player.AddComponent(new MeshRenderer(255, 0, 0, 0, "test.bmp", true));
             player.AddComponent(new PlayerController());
             myEngine.Instanciate(player);
 
