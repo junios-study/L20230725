@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AIController.cs" />
+    <Compile Include="Collider.cs" />
     <Compile Include="GoalIn.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Engine.cs" />

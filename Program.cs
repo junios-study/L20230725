@@ -12,10 +12,10 @@ namespace L20230725
     {
         static int[,] map = {
                 { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-                { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 0, 0, 1, 0, 0, 0, 0, 0, 1 },
+                { 1, 1, 1, 1, 0, 0, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
                 { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
@@ -30,7 +30,7 @@ namespace L20230725
             {
                 for (int x = 0; x < 10; ++x)
                 {
-                    if (map[y,x] == 1)
+                    if (map[y, x] == 1)
                     {
                         GameObject floor = new GameObject();
                         floor.name = "floor";
@@ -46,10 +46,10 @@ namespace L20230725
                         wall.transform.y = y;
                         wall.AddComponent(new MeshFilter('*'));
                         wall.AddComponent(new MeshRenderer());
-                        //wall.AddComponent(new PlayerController());
+                        wall.AddComponent(new Collider());
                         myEngine.Instanciate(wall);
                     }
-                    else if (map[y,x ]== 0)
+                    else if (map[y, x] == 0)
                     {
                         GameObject floor = new GameObject();
                         floor.name = "floor";
